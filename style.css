@@ -1,0 +1,462 @@
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Courier New', 'Consolas', monospace;
+    background: linear-gradient(135deg, #0a0a0a, #1a1a1a);
+    color: #ffffff;
+    overflow: hidden;
+    user-select: none;
+}
+
+/* Game Container */
+.game-container {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Canvas */
+#gameCanvas {
+    background: #0f0f0f;
+    border: 2px solid #333;
+    border-radius: 8px;
+    cursor: crosshair;
+    box-shadow: 0 0 30px rgba(0, 255, 0, 0.1);
+}
+
+/* HUD Elements */
+.hud {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 10;
+}
+
+/* Top Left Stats */
+.stats-left {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.health-container, .stamina-container, .xp-container {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.health-container label, .stamina-container label, .xp-container label {
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Progress Bars */
+.bar {
+    width: 200px;
+    height: 12px;
+    background: rgba(0, 0, 0, 0.8);
+    border: 2px solid #444;
+    border-radius: 6px;
+    overflow: hidden;
+    position: relative;
+}
+
+.bar-fill {
+    height: 100%;
+    transition: width 0.3s ease;
+    position: relative;
+}
+
+.health-bar .bar-fill {
+    background: linear-gradient(90deg, #ff4444, #ff6666);
+    box-shadow: 0 0 10px rgba(255, 68, 68, 0.5);
+}
+
+.stamina-bar .bar-fill {
+    background: linear-gradient(90deg, #4444ff, #6666ff);
+    box-shadow: 0 0 10px rgba(68, 68, 255, 0.5);
+}
+
+.xp-bar .bar-fill {
+    background: linear-gradient(90deg, #ffaa00, #ffcc44);
+    box-shadow: 0 0 10px rgba(255, 170, 0, 0.5);
+}
+
+#healthText, #xpText {
+    font-size: 12px;
+    color: #ccc;
+    margin-top: 2px;
+}
+
+/* Top Right Stats */
+.stats-right {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    text-align: right;
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.stat-item label {
+    font-size: 12px;
+    color: #888;
+    text-transform: uppercase;
+}
+
+.stat-item span {
+    font-size: 20px;
+    font-weight: bold;
+    color: #fff;
+}
+
+/* Weapon Info */
+.weapon-info {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.weapon-display {
+    background: rgba(0, 0, 0, 0.8);
+    padding: 15px 25px;
+    border-radius: 8px;
+    border: 2px solid #444;
+    text-align: center;
+}
+
+#weaponName {
+    font-size: 18px;
+    font-weight: bold;
+    color: #ffaa00;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.ammo-display {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+#ammoText {
+    font-size: 24px;
+    font-weight: bold;
+    color: #fff;
+}
+
+.reload-hint {
+    font-size: 12px;
+    color: #888;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.reload-hint.show {
+    opacity: 1;
+}
+
+/* Weapon Selector */
+.weapon-selector {
+    display: flex;
+    gap: 10px;
+}
+
+.weapon-slot {
+    width: 40px;
+    height: 40px;
+    background: rgba(0, 0, 0, 0.8);
+    border: 2px solid #444;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: #888;
+    transition: all 0.3s ease;
+}
+
+.weapon-slot.active {
+    border-color: #ffaa00;
+    color: #ffaa00;
+    box-shadow: 0 0 10px rgba(255, 170, 0, 0.3);
+}
+
+.weapon-slot.unlocked {
+    border-color: #00aa00;
+    color: #00aa00;
+}
+
+/* Screens */
+.screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    backdrop-filter: blur(5px);
+}
+
+.screen.hidden {
+    display: none;
+}
+
+.screen-content {
+    background: rgba(20, 20, 20, 0.95);
+    padding: 40px;
+    border-radius: 15px;
+    border: 2px solid #444;
+    text-align: center;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.8);
+}
+
+.screen-content h1 {
+    font-size: 48px;
+    margin-bottom: 30px;
+    color: #ffaa00;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+.final-stats {
+    margin: 30px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.final-stats p {
+    font-size: 18px;
+    color: #ccc;
+}
+
+.final-stats span {
+    color: #ffaa00;
+    font-weight: bold;
+}
+
+/* Buttons */
+.btn-primary, .btn-secondary {
+    padding: 15px 30px;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin: 10px;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    pointer-events: auto;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #ffaa00, #ff8800);
+    color: #000;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, #ff8800, #ff6600);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 170, 0, 0.3);
+}
+
+.btn-secondary {
+    background: rgba(68, 68, 68, 0.8);
+    color: #fff;
+    border: 2px solid #666;
+}
+
+.btn-secondary:hover {
+    background: rgba(100, 100, 100, 0.8);
+    border-color: #888;
+}
+
+/* Perk Options */
+.perk-options {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin: 20px 0;
+}
+
+.perk-option {
+    background: rgba(40, 40, 40, 0.8);
+    padding: 20px;
+    border-radius: 10px;
+    border: 2px solid #666;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    pointer-events: auto;
+}
+
+.perk-option:hover {
+    border-color: #ffaa00;
+    background: rgba(60, 60, 40, 0.8);
+    transform: translateY(-2px);
+}
+
+.perk-option h3 {
+    color: #ffaa00;
+    margin-bottom: 10px;
+}
+
+.perk-option p {
+    color: #ccc;
+    font-size: 14px;
+}
+
+/* Notifications */
+.notifications {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 50;
+}
+
+.notification {
+    background: rgba(0, 0, 0, 0.8);
+    color: #ffaa00;
+    padding: 15px 25px;
+    border-radius: 8px;
+    border: 2px solid #ffaa00;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 10px;
+    animation: notification-appear 0.5s ease, notification-fade 2s ease 1s forwards;
+}
+
+@keyframes notification-appear {
+    from {
+        opacity: 0;
+        transform: translateY(-20px) scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes notification-fade {
+    to {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+}
+
+@keyframes floatUp {
+    0% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+}
+
+/* Damage numbers */
+.damage-number {
+    position: absolute;
+    font-size: 16px;
+    font-weight: bold;
+    pointer-events: none;
+    z-index: 1000;
+    animation: floatUp 1s ease-out forwards;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+/* Controls Info */
+.controls-info {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.7);
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-size: 12px;
+    color: #888;
+    text-align: center;
+}
+
+/* Responsive Design */
+@media (max-width: 1400px) {
+    .stats-left, .stats-right {
+        font-size: 12px;
+    }
+    
+    .bar {
+        width: 150px;
+        height: 10px;
+    }
+    
+    .weapon-display {
+        padding: 10px 20px;
+    }
+    
+    #weaponName {
+        font-size: 16px;
+    }
+    
+    #ammoText {
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 800px) {
+    .stats-left {
+        top: 10px;
+        left: 10px;
+    }
+    
+    .stats-right {
+        top: 10px;
+        right: 10px;
+    }
+    
+    .weapon-info {
+        bottom: 20px;
+    }
+    
+    .controls-info {
+        font-size: 10px;
+        bottom: 5px;
+    }
+}

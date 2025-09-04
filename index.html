@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Zombie Survival Shooter</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="game-container">
+        <!-- Game Canvas -->
+        <canvas id="gameCanvas"></canvas>
+        
+        <!-- HUD Elements -->
+        <div class="hud">
+            <!-- Top Left Stats -->
+            <div class="stats-left">
+                <div class="health-container">
+                    <label>Health</label>
+                    <div class="bar health-bar">
+                        <div id="healthFill" class="bar-fill"></div>
+                    </div>
+                    <span id="healthText">100/100</span>
+                </div>
+                
+                <div class="stamina-container">
+                    <label>Stamina</label>
+                    <div class="bar stamina-bar">
+                        <div id="staminaFill" class="bar-fill"></div>
+                    </div>
+                </div>
+                
+                <div class="xp-container">
+                    <label>XP Level <span id="playerLevel">1</span></label>
+                    <div class="bar xp-bar">
+                        <div id="xpFill" class="bar-fill"></div>
+                    </div>
+                    <span id="xpText">0/100</span>
+                </div>
+            </div>
+            
+            <!-- Top Right Stats -->
+            <div class="stats-right">
+                <div class="stat-item">
+                    <label>Score</label>
+                    <span id="scoreText">0</span>
+                </div>
+                <div class="stat-item">
+                    <label>Wave</label>
+                    <span id="waveText">1</span>
+                </div>
+                <div class="stat-item">
+                    <label>Kills</label>
+                    <span id="killsText">0</span>
+                </div>
+            </div>
+            
+            <!-- Bottom Center Weapon Info -->
+            <div class="weapon-info">
+                <div class="weapon-display">
+                    <span id="weaponName">Pistol</span>
+                    <div class="ammo-display">
+                        <span id="ammoText">∞</span>
+                        <span class="reload-hint" id="reloadHint">Press R to reload</span>
+                    </div>
+                </div>
+                <div class="weapon-selector">
+                    <div class="weapon-slot active" data-weapon="0">1</div>
+                    <div class="weapon-slot" data-weapon="1">2</div>
+                    <div class="weapon-slot" data-weapon="2">3</div>
+                    <div class="weapon-slot" data-weapon="3">4</div>
+                    <div class="weapon-slot" data-weapon="4">5</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Game Over Screen -->
+        <div id="gameOverScreen" class="screen hidden">
+            <div class="screen-content">
+                <h1>GAME OVER</h1>
+                <div class="final-stats">
+                    <p>Final Score: <span id="finalScore">0</span></p>
+                    <p>Wave Reached: <span id="finalWave">1</span></p>
+                    <p>Total Kills: <span id="finalKills">0</span></p>
+                    <p>Level Reached: <span id="finalLevel">1</span></p>
+                </div>
+                <button id="restartBtn" class="btn-primary">Play Again</button>
+            </div>
+        </div>
+        
+        <!-- Pause Screen -->
+        <div id="pauseScreen" class="screen hidden">
+            <div class="screen-content">
+                <h1>PAUSED</h1>
+                <button id="resumeBtn" class="btn-primary">Resume</button>
+                <button id="pauseRestartBtn" class="btn-secondary">Restart</button>
+                <button id="quitBtn" class="btn-secondary">Quit</button>
+            </div>
+        </div>
+        
+        <!-- Level Up Screen -->
+        <div id="levelUpScreen" class="screen hidden">
+            <div class="screen-content">
+                <h1>LEVEL UP!</h1>
+                <p>You reached level <span id="levelUpLevel">1</span>!</p>
+                <p>Choose a perk:</p>
+                <div class="perk-options">
+                    <div class="perk-option" id="perk1">
+                        <h3>Perk 1</h3>
+                        <p>Description 1</p>
+                    </div>
+                    <div class="perk-option" id="perk2">
+                        <h3>Perk 2</h3>
+                        <p>Description 2</p>
+                    </div>
+                    <div class="perk-option" id="perk3">
+                        <h3>Perk 3</h3>
+                        <p>Description 3</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Power-up Notifications -->
+        <div class="notifications" id="notifications"></div>
+        
+        <!-- Controls Info -->
+        <div class="controls-info">
+            <p><strong>WASD:</strong> Move | <strong>Mouse:</strong> Aim | <strong>Click:</strong> Shoot | <strong>Space:</strong> Dash | <strong>R:</strong> Reload | <strong>1-5:</strong> Weapons | <strong>P:</strong> Pause</p>
+        </div>
+    </div>
+    
+    <script type="module" src="game.js"></script>
+</body>
+</html>
