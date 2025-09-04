@@ -5,6 +5,7 @@ export class UIManager {
         this.maxNotifications = 5;
         this.elements = {
             healthBar: document.getElementById('healthFill'),
+            healthText: document.getElementById('healthText'),
             staminaBar: document.getElementById('staminaFill'),
             xpBar: document.getElementById('xpFill'),
             scoreValue: document.getElementById('scoreText'),
@@ -50,6 +51,9 @@ export class UIManager {
     updateHealthBar(health, maxHealth) {
         const percentage = (health / maxHealth) * 100;
         this.elements.healthBar.style.width = `${percentage}%`;
+        
+        // Update health text display
+        this.elements.healthText.textContent = `${Math.ceil(health)}/${maxHealth}`;
         
         // Change color based on health
         if (percentage > 60) {

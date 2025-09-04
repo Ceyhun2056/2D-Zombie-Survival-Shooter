@@ -59,7 +59,7 @@ export class Player {
                 range: 200,
                 spread: 0.5,
                 bulletCount: 5,
-                unlocked: false
+                unlocked: true
             },
             {
                 name: 'Assault Rifle',
@@ -71,7 +71,7 @@ export class Player {
                 range: 350,
                 spread: 0.1,
                 bulletCount: 1,
-                unlocked: false
+                unlocked: true
             },
             {
                 name: 'Sniper Rifle',
